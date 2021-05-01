@@ -4,6 +4,8 @@ import java.util.Objects;
 
 class CarPosition {
 	static final CarPosition ZERO = new CarPosition(0);
+	private static final int ONE_STEP = 1;
+
 	private final int position;
 
 	private CarPosition(int position) {
@@ -40,5 +42,9 @@ class CarPosition {
 	@Override
 	public int hashCode() {
 		return Objects.hash(position);
+	}
+
+	CarPosition movedForward() {
+		return new CarPosition(position + ONE_STEP);
 	}
 }

@@ -4,7 +4,7 @@ import static car.CarPosition.*;
 
 public class Car {
 	private final CarName name;
-	private final CarPosition position;
+	private CarPosition position;
 
 	Car(CarName name) {
 		this.name = name;
@@ -17,5 +17,11 @@ public class Car {
 
 	public String getName() {
 		return name.getName();
+	}
+
+	void moveForward(Accelerator accelerator) {
+		if (accelerator.pushed()) {
+			this.position = position.movedForward();
+		}
 	}
 }

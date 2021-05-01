@@ -26,9 +26,18 @@ public class CarPositionTest {
 
 	@Test
 	@DisplayName("차 위치 값으로 동등성을 비교한다.")
-	public void carEqualityTest() {
+	public void carPositionEqualityTest() {
 		assertThat(CarPosition.of(0))
 			.isEqualTo(CarPosition.of(0));
 	}
 
+	@Test
+	@DisplayName("위치를 이동시키면 1만큼 위치 값이 늘어난다")
+	public void moveCarPositionTest() {
+		final int initialPositionValue = 1;
+		CarPosition initialPosition = CarPosition.of(initialPositionValue);
+		CarPosition movedPosition = initialPosition.movedForward();
+
+		assertThat(movedPosition).isEqualTo(CarPosition.of(initialPositionValue + 1));
+	}
 }
