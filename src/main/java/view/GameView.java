@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GameView {
+	static final String EMPTY_STRING = "";
 	static final String CAR_NAMES_DELIMITER = ",";
+	static final String CAR_POSITION_MARK = "-";
 	static final String INPUT_CAR_NAMES_MESSAGE = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)\n";
 	static final String INPUT_MOVE_TRY_COUNT_MESSAGE = "시도할 회수는 몇회인가요?\n";
 
@@ -35,5 +37,19 @@ public class GameView {
 
 	public MoveTryCount inputMoveTryCount() {
 		return MoveTryCount.of(scanner.nextInt());
+	}
+
+	public void printMoveResult(CarMovingPositionDto carMovingPositionDto) {
+		String positionMark = renderPositionMark(carMovingPositionDto.getPosition());
+		String output = String.format("%s : %s", carMovingPositionDto.getName(), positionMark);
+		printStream.println(output);
+	}
+
+	private String renderPositionMark(int position) {
+		String positionMark = EMPTY_STRING;
+		for (int i = 0; i < position; i++) {
+			positionMark = positionMark.concat(CAR_POSITION_MARK);
+		}
+		return positionMark;
 	}
 }

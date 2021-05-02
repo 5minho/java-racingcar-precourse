@@ -79,6 +79,18 @@ public class GameViewTest {
 		assertThatIllegalArgumentException().isThrownBy(gameView::inputMoveTryCount);
 	}
 
+	@Test
+	@DisplayName("자동차 하나의 이동 결과는 {이름} : {이동거리 * '-'} 형식으로 찍혀야 한다")
+	public void printCarMoveResult() {
+		// given
+		GameView gameView = createGameViewWithUserInput(DEFAULT_INPUT_STRING, outputStream);
+		CarMovingPositionDto carMovingPositionDto = new CarMovingPositionDto("test", 1);
+		// when
+		gameView.printMoveResult(carMovingPositionDto);
+		// then
+		assertThat(outputStream.toString()).isEqualTo("test : -\n");
+	}
+
 	private GameView createGameViewWithUserInput(String userInput, OutputStream outputStream) {
 		InputStream byteArrayInputStream = new ByteArrayInputStream(userInput.getBytes());
 		return new GameView(byteArrayInputStream, outputStream);
