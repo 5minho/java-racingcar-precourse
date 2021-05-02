@@ -19,8 +19,8 @@ public class Car {
 		return name.getName();
 	}
 
-	void moveForward(Accelerator accelerator) {
-		if (accelerator.pushed()) {
+	void moveForward(MoveCondition moveCondition) {
+		if (moveCondition.isSatisfied()) {
 			this.position = position.movedForward();
 		}
 	}

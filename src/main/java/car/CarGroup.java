@@ -24,4 +24,10 @@ public class CarGroup {
 	public List<Car> getCars() {
 		return cars;
 	}
+
+	public void moveForward(MoveCondition moveCondition) {
+		for (Car car : cars) {
+			car.moveForward(moveCondition);
+		}
+	}
 }

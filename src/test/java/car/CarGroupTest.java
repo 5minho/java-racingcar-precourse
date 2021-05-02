@@ -12,6 +12,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class CarGroupTest {
 
+	private static final int CAR_POSITION_ONE = 1;
+
 	@ParameterizedTest
 	@CsvSource(value = {"one:two:three"}, delimiter = ':')
 	public void createCarGroupTest(String testCarOne, String testCarTwo, String testCarThree) {
@@ -37,5 +39,17 @@ public class CarGroupTest {
 
 		assertThatExceptionOfType(UnsupportedOperationException.class)
 			.isThrownBy(() -> cars.add(new Car(CarName.of("Test"))));
+	}
+
+	@Test
+	@DisplayName("이동조건이 만족되면 Car Group 에 있는 Car 들을 한번에 전진 시킨다.")
+	public void moveForwardCarsTest() {
+		CarGroup carGroup = new CarGroup(Arrays.asList("carOne", "carTwo"));
+		carGroup.moveForward(() -> true);
+
+		List<Car> cars = carGroup.getCars();
+		for (Car car : cars) {
+			assertThat(car.getPosition()).isEqualTo(CAR_POSITION_ONE);
+		}
 	}
 }
