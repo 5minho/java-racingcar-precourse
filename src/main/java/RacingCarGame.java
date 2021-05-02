@@ -1,7 +1,9 @@
 import java.util.List;
+import java.util.Random;
 
 import car.CarGroup;
 import car.MoveCondition;
+import car.RandomNumberComparingCondition;
 import view.CarGroupPositionDto;
 import view.CarRaceResultDto;
 import view.GameView;
@@ -46,7 +48,8 @@ public class RacingCarGame {
 
 	public static void main(String[] args) {
 		GameView gameView = new GameView(System.in, System.out);
-		RacingCarGame racingCarGame = new RacingCarGame(() -> true, gameView);
+		MoveCondition moveCondition = new RandomNumberComparingCondition(new Random());
+		RacingCarGame racingCarGame = new RacingCarGame(moveCondition, gameView);
 		racingCarGame.run();
 	}
 }
