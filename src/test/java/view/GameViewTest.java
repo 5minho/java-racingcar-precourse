@@ -25,9 +25,9 @@ public class GameViewTest {
 
 	@Test
 	@DisplayName("사용자들에게 경주할 자동 이름을 입력하란 메시지를 보여준다.")
-	public void printInputCarNamesMessage() {
+	public void printInputCarNamesMessageTest() {
 		// given
-		GameView gameView = createGameView(DEFAULT_INPUT_STRING, outputStream);
+		GameView gameView = createGameViewWithUserInput(DEFAULT_INPUT_STRING, outputStream);
 		// when
 		gameView.printInputCarNamesMessage();
 		// then
@@ -37,9 +37,9 @@ public class GameViewTest {
 	@ParameterizedTest
 	@DisplayName("사용자들에게 경주할 자동차 이름을 입력받아 쉼표로 구분해야 한다.")
 	@CsvSource(value = {"car1,car2:car1:car2", "879,&@(:879:&@("}, delimiter = ':')
-	public void inputCarNamesMessage(String userInput, String expectedName1, String expectedName2) {
+	public void inputCarNamesMessageTest(String userInput, String expectedName1, String expectedName2) {
 		// given
-		GameView gameView = createGameView(userInput, outputStream);
+		GameView gameView = createGameViewWithUserInput(userInput, outputStream);
 		// when
 		List<String> carNames = gameView.inputCarNamesMessage();
 		// then
@@ -47,7 +47,39 @@ public class GameViewTest {
 		assertThat(carNames.get(1)).isEqualTo(expectedName2);
 	}
 
-	private GameView createGameView(String userInput, OutputStream outputStream) {
+	@Test
+	@DisplayName("사용자에게 전진 시도 횟수를 입력하라는 메시지를 보여준다.")
+	public void printInputMoveTryCountMessageTest() {
+		// given
+		GameView gameView = createGameViewWithUserInput(DEFAULT_INPUT_STRING, outputStream);
+		// when
+		gameView.printInputMoveTryCountMessage();
+		// then
+		assertThat(outputStream.toString()).isEqualTo(GameView.INPUT_MOVE_TRY_COUNT_MESSAGE);
+	}
+
+	@ParameterizedTest
+	@DisplayName("사용자에게 전진 시도 횟수를 입력받아야 한다.")
+	@CsvSource(value = {"5:5"}, delimiter = ':')
+	public void inputMoveCountTest(String userInputMoveCount, int expectedMoveCount) {
+		// given
+		GameView gameView = createGameViewWithUserInput(userInputMoveCount, outputStream);
+		// when
+		MoveTryCount moveTryCount = gameView.inputMoveTryCount();
+		// then
+		assertThat(moveTryCount.getCount()).isEqualTo(expectedMoveCount);
+	}
+
+	@Test
+	@DisplayName("전진 시도 횟수로 음수는 입력할 수 없다.")
+	public void inputMoveTryCountNegativeTest() {
+		// given
+		GameView gameView = createGameViewWithUserInput("-1", outputStream);
+		// when, then
+		assertThatIllegalArgumentException().isThrownBy(gameView::inputMoveTryCount);
+	}
+
+	private GameView createGameViewWithUserInput(String userInput, OutputStream outputStream) {
 		InputStream byteArrayInputStream = new ByteArrayInputStream(userInput.getBytes());
 		return new GameView(byteArrayInputStream, outputStream);
 	}

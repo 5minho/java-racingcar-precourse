@@ -36,7 +36,7 @@ public class CarGroupTest {
 	@DisplayName("Car Group 의 Car 들을 참조해서 변경할 수 없다.")
 	public void carsUnmodifiableTest() {
 		// given
-		CarGroup carGroup = new CarGroup(Arrays.asList("carOne", "carTwo"));
+		CarGroup carGroup = new CarGroup(Arrays.asList("car1", "car2"));
 		// when
 		List<Car> cars = carGroup.getCars();
 		// then
@@ -47,7 +47,7 @@ public class CarGroupTest {
 	@Test
 	@DisplayName("이동조건이 만족되면 Car Group 에 있는 Car 들을 한번에 전진 시킨다.")
 	public void moveForwardCarsTest() {
-		CarGroup carGroup = new CarGroup(Arrays.asList("carOne", "carTwo"));
+		CarGroup carGroup = new CarGroup(Arrays.asList("car1", "car2"));
 		carGroup.moveForward(() -> true);
 
 		List<Car> cars = carGroup.getCars();

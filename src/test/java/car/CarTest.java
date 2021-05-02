@@ -14,8 +14,8 @@ public class CarTest {
 
 	@BeforeEach
 	void setUp() {
-		CarName name = CarName.of("testCar");
-		testCar = new Car(name);
+		CarName testCarName = CarName.of("test");
+		testCar = new Car(testCarName);
 	}
 
 	@Test
@@ -27,8 +27,8 @@ public class CarTest {
 	@ParameterizedTest
 	@CsvSource(value = {"true:1", "false:0"}, delimiter = ':')
 	@DisplayName("차 이동 조건에 따라 이면 한칸 전진하거나 전진하지 않는다.")
-	public void carMoveForwardIfConditionIsTrueTest(boolean pushedAccelerator, int position) {
-		testCar.moveForward(() -> pushedAccelerator);
+	public void carMoveForwardIfConditionIsTrueTest(boolean canMove, int position) {
+		testCar.moveForward(() -> canMove);
 
 		assertThat(testCar.getPosition()).isEqualTo(position);
 	}

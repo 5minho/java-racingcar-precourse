@@ -16,14 +16,20 @@ public class CarNameTest {
 		//given
 		CarName carName = CarName.of(name);
 		// when then
-		assertThat(carName.getName())
-			.isEqualTo(name);
+		assertThat(carName.getName()).isEqualTo(name);
 	}
 
 	@Test
 	@DisplayName("차 이름은 공백이 될 수 없다.")
 	public void emptyCarNameTest() {
-		assertThatIllegalArgumentException()
-			.isThrownBy(() -> CarName.of(""));
+		assertThatIllegalArgumentException().isThrownBy(() -> CarName.of(""));
+	}
+
+	@Test
+	@DisplayName("차 이름은 5자 이상이 될 수 없다.")
+	public void carNameLengthTest() {
+		assertThat(CarName.of("12345").getName()).isEqualTo("12345");
+
+		assertThatIllegalArgumentException().isThrownBy(() -> CarName.of("123456"));
 	}
 }
