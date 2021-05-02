@@ -13,8 +13,9 @@ public class CarNameTest {
 	@ValueSource(strings = "name")
 	@DisplayName("차 이름은 하나의 문자열로 이루어진다.")
 	public void carNameTest(String name) {
+		//given
 		CarName carName = CarName.of(name);
-
+		// when then
 		assertThat(carName.getName())
 			.isEqualTo(name);
 	}

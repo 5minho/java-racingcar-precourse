@@ -10,9 +10,11 @@ public class CarPositionTest {
 	@Test
 	@DisplayName("차 위치는 integer 값을 하나로 이루어져 있다")
 	public void carPositionTest() {
+		// given
 		int expectedPosition = 1;
+		// when
 		CarPosition carPosition = CarPosition.of(expectedPosition);
-
+		// then
 		assertThat(carPosition.getPosition())
 			.isEqualTo(expectedPosition);
 	}
@@ -34,10 +36,12 @@ public class CarPositionTest {
 	@Test
 	@DisplayName("위치를 이동시키면 1만큼 위치 값이 늘어난다")
 	public void moveCarPositionTest() {
+		// given
 		final int initialPositionValue = 1;
 		CarPosition initialPosition = CarPosition.of(initialPositionValue);
+		// when
 		CarPosition movedPosition = initialPosition.movedForward();
-
+		// then
 		assertThat(movedPosition).isEqualTo(CarPosition.of(initialPositionValue + 1));
 	}
 }
