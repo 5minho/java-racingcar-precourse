@@ -2,11 +2,12 @@ import java.util.List;
 
 import car.CarGroup;
 import car.MoveCondition;
+import view.CarGroupPositionDto;
+import view.CarRaceResultDto;
 import view.GameView;
 import view.MoveTryCount;
 
 public class RacingCarGame {
-	public static final int INITIAL_LOOP_COUNT = 0;
 	private final MoveCondition moveCondition;
 	private final GameView gameView;
 
@@ -18,8 +19,8 @@ public class RacingCarGame {
 	public void run() {
 		CarGroup carGroup = inputCarGroup();
 		MoveTryCount moveTryCount = inputMoveTryCount();
-		raceCars(carGroup, moveTryCount);
-		// 우승 출력
+		CarRaceResultDto carRaceResultDto = raceCars(carGroup, moveTryCount);
+		gameView.printCarRaceResult(carRaceResultDto);
 	}
 
 	MoveTryCount inputMoveTryCount() {
@@ -33,10 +34,14 @@ public class RacingCarGame {
 		return new CarGroup(carNames);
 	}
 
-	void raceCars(CarGroup carGroup, MoveTryCount moveCount) {
-		for (int i = INITIAL_LOOP_COUNT; i < moveCount.getCount(); i++) {
-			carGroup.moveForward(moveCondition);
-		}
+	CarRaceResultDto raceCars(CarGroup carGroup, MoveTryCount moveTryCount) {
+		List<CarGroupPositionDto> carGroupMoves = moveTryCount.repeatToAdd(
+			() -> {
+				carGroup.moveForward(moveCondition);
+				return CarDtoConverter.toDto(carGroup);
+			}
+		);
+		return new CarRaceResultDto(carGroupMoves);
 	}
 
 	public static void main(String[] args) {

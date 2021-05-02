@@ -84,9 +84,9 @@ public class GameViewTest {
 	public void printCarMoveResult() {
 		// given
 		GameView gameView = createGameViewWithUserInput(DEFAULT_INPUT_STRING, outputStream);
-		CarMovingPositionDto carMovingPositionDto = new CarMovingPositionDto("test", 1);
+		CarPositionDto carPositionDto = new CarPositionDto("test", 1);
 		// when
-		gameView.printMoveResult(carMovingPositionDto);
+		gameView.printCarPosition(carPositionDto);
 		// then
 		assertThat(outputStream.toString()).isEqualTo("test : -\n");
 	}

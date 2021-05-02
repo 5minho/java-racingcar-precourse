@@ -1,10 +1,10 @@
 package view;
 
-public class CarMovingPositionDto {
+public class CarPositionDto {
 	private final String name;
 	private final int position;
 
-	public CarMovingPositionDto(String name, int position) {
+	public CarPositionDto(String name, int position) {
 		this.name = name;
 		this.position = position;
 	}
