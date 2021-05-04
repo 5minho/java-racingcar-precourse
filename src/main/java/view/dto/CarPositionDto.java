@@ -1,4 +1,4 @@
-package view;
+package view.dto;
 
 public class CarPositionDto {
 	private final String name;

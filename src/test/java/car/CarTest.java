@@ -21,7 +21,7 @@ public class CarTest {
 	@Test
 	@DisplayName("차를 처음 생성하면 위치가 0 이다.")
 	public void carInitialPositionTest() {
-		assertThat(testCar.getPosition()).isEqualTo(CarPosition.ZERO.getPosition());
+		assertThat(testCar.getPosition()).isEqualTo(CarPosition.INITIAL_POSITION.getPosition());
 	}
 
 	@ParameterizedTest

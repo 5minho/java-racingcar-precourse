@@ -2,8 +2,8 @@ package car;
 
 import java.util.Objects;
 
-class CarPosition {
-	static final CarPosition ZERO = new CarPosition(0);
+class CarPosition implements Comparable<CarPosition> {
+	static final CarPosition INITIAL_POSITION = new CarPosition(0);
 	private static final int ONE_STEP = 1;
 
 	private final int position;
@@ -46,5 +46,10 @@ class CarPosition {
 
 	CarPosition movedForward() {
 		return new CarPosition(position + ONE_STEP);
+	}
+
+	@Override
+	public int compareTo(CarPosition other) {
+		return Integer.compare(position, other.position);
 	}
 }

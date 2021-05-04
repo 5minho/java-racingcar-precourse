@@ -2,13 +2,13 @@ package car;
 
 import static car.CarPosition.*;
 
-public class Car {
+public class Car implements Comparable<Car> {
 	private final CarName name;
 	private CarPosition position;
 
 	Car(CarName name) {
 		this.name = name;
-		this.position = ZERO;
+		this.position = INITIAL_POSITION;
 	}
 
 	public int getPosition() {
@@ -23,5 +23,14 @@ public class Car {
 		if (moveCondition.isSatisfied()) {
 			this.position = position.movedForward();
 		}
+	}
+
+	boolean equalPosition(Car otherCar) {
+		return this.position.equals(otherCar.position);
+	}
+
+	@Override
+	public int compareTo(Car otherCar) {
+		return this.position.compareTo(otherCar.position);
 	}
 }

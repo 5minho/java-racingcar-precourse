@@ -1,13 +1,16 @@
+import static util.ListUtils.*;
+
 import java.util.List;
 import java.util.Random;
 
+import car.Car;
 import car.CarGroup;
 import car.MoveCondition;
 import car.RandomNumberComparingCondition;
-import view.CarGroupPositionDto;
-import view.CarRaceResultDto;
 import view.GameView;
 import view.MoveTryCount;
+import view.dto.CarGroupPositionDto;
+import view.dto.CarRaceResultDto;
 
 public class RacingCarGame {
 	private final MoveCondition moveCondition;
@@ -25,25 +28,25 @@ public class RacingCarGame {
 		gameView.printCarRaceResult(carRaceResultDto);
 	}
 
-	MoveTryCount inputMoveTryCount() {
+	private CarGroup inputCarGroup() {
+		gameView.printInputCarNamesMessage();
+		return CarGroup.of(gameView.inputCarNames());
+	}
+
+	private MoveTryCount inputMoveTryCount() {
 		gameView.printInputMoveTryCountMessage();
 		return gameView.inputMoveTryCount();
 	}
 
-	CarGroup inputCarGroup() {
-		gameView.printInputCarNamesMessage();
-		List<String> carNames = gameView.inputCarNamesMessage();
-		return new CarGroup(carNames);
+	CarRaceResultDto raceCars(CarGroup carGroup, MoveTryCount moveTryCount) {
+		List<CarGroupPositionDto> carGroupPositions = map(moveTryCount.getCount(), () -> movedForward(carGroup));
+		List<String> winnerNames = map(carGroup.getWinners(), Car::getName);
+		return new CarRaceResultDto(carGroupPositions, winnerNames);
 	}
 
-	CarRaceResultDto raceCars(CarGroup carGroup, MoveTryCount moveTryCount) {
-		List<CarGroupPositionDto> carGroupMoves = moveTryCount.repeatToAdd(
-			() -> {
-				carGroup.moveForward(moveCondition);
-				return CarDtoConverter.toDto(carGroup);
-			}
-		);
-		return new CarRaceResultDto(carGroupMoves);
+	private CarGroupPositionDto movedForward(CarGroup carGroup) {
+		carGroup.moveForward(moveCondition);
+		return RacingCarDtoConverter.toCarGroupPositionDto(carGroup);
 	}
 
 	public static void main(String[] args) {

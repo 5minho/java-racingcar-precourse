@@ -17,7 +17,7 @@ public class RacingCarGameTest {
 	public void moveForwardTest() {
 		// given
 		final int moveCount = 5;
-		CarGroup carGroup = new CarGroup(Arrays.asList("one", "two"));
+		CarGroup carGroup = CarGroup.of(Arrays.asList("one", "two"));
 		RacingCarGame racingCarGame = new RacingCarGame(() -> true, new GameView(System.in, System.out));
 		// when
 		racingCarGame.raceCars(carGroup, MoveTryCount.of(moveCount));

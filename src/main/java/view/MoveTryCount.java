@@ -1,11 +1,6 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 public class MoveTryCount {
-	public static final int INITIAL_LOOP_COUNT = 0;
 	private static final int MOVE_TRY_COUNT_MIN = 0;
 	private final int count;
 
@@ -26,13 +21,5 @@ public class MoveTryCount {
 
 	public int getCount() {
 		return count;
-	}
-
-	public <R> List<R> repeatToAdd(Supplier<R> supplier) {
-		List<R> list = new ArrayList<>();
-		for (int i = INITIAL_LOOP_COUNT; i < count; i++) {
-			list.add(supplier.get());
-		}
-		return list;
 	}
 }

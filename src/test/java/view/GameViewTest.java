@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import view.dto.CarPositionDto;
+
 public class GameViewTest {
 	static final String DEFAULT_INPUT_STRING = "";
 	private ByteArrayOutputStream outputStream;
@@ -41,7 +43,7 @@ public class GameViewTest {
 		// given
 		GameView gameView = createGameViewWithUserInput(userInput, outputStream);
 		// when
-		List<String> carNames = gameView.inputCarNamesMessage();
+		List<String> carNames = gameView.inputCarNames();
 		// then
 		assertThat(carNames.get(0)).isEqualTo(expectedName1);
 		assertThat(carNames.get(1)).isEqualTo(expectedName2);

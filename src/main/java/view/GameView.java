@@ -7,14 +7,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import view.dto.CarGroupPositionDto;
+import view.dto.CarPositionDto;
+import view.dto.CarRaceResultDto;
+
 public class GameView {
 	static final String EMPTY_STRING = "";
 	static final String CAR_NAMES_DELIMITER = ",";
+	static final String WINNER_NAMES_DELIMITER = ", ";
 	static final String CAR_POSITION_MARK = "-";
 	static final String INPUT_CAR_NAMES_MESSAGE = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)\n";
 	static final String INPUT_MOVE_TRY_COUNT_MESSAGE = "시도할 회수는 몇회인가요?\n";
 	static final String CAR_RACE_RESULT_START_MESSAGE = "\n실행 결과";
-	static final String CAR_RACE_RESULT_END_MESSAGE = "가 최종 우승했습니다";
+	static final String CAR_RACE_RESULT_END_MESSAGE = "%s가 최종 우승했습니다";
 
 	private final Scanner scanner;
 	private final PrintStream printStream;
@@ -28,7 +33,7 @@ public class GameView {
 		printStream.print(INPUT_CAR_NAMES_MESSAGE);
 	}
 
-	public List<String> inputCarNamesMessage() {
+	public List<String> inputCarNames() {
 		String inputCarNames = scanner.next();
 		return Arrays.asList(inputCarNames.split(CAR_NAMES_DELIMITER));
 	}
@@ -47,7 +52,9 @@ public class GameView {
 			printCarGroupPosition(carGroupPositionDto);
 			printStream.println();
 		}
-		printStream.println(CAR_RACE_RESULT_END_MESSAGE);
+		String winners = String.join(WINNER_NAMES_DELIMITER, carRaceResultDto.getWinnerNames());
+		String output = String.format(CAR_RACE_RESULT_END_MESSAGE, winners);
+		printStream.println(output);
 	}
 
 	void printCarGroupPosition(CarGroupPositionDto carGroupPositionDto) {
