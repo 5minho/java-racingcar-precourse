@@ -17,6 +17,7 @@ public class CarGroupTest {
 
 	@ParameterizedTest
 	@CsvSource(value = {"one:two:three"}, delimiter = ':')
+	@DisplayName("Car 의 이름 문자열 리스트로 CarGroup 을 생성할 수 있다.")
 	public void createCarGroupTest(String testCarOne, String testCarTwo, String testCarThree) {
 		// given
 		List<String> names = Arrays.asList(testCarOne, testCarTwo, testCarThree);
@@ -64,7 +65,7 @@ public class CarGroupTest {
 	}
 
 	@Test
-	@DisplayName("가장 많이 전진한 차 들이 winner 이다.")
+	@DisplayName("가장 많이 전진한 Car 들이 winner 이다.")
 	public void winnerTest() {
 		// given
 		Car car1 = new Car(CarName.of("car1"));
